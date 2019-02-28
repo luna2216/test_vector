@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<MPD mediaPresentationDuration="PT10.000S" minBufferTime="PT2.00S" profiles="urn:mpeg:dash:profile:isoff-live:2011" type="static" xmlns="urn:mpeg:dash:schema:mpd:2011" xmlns:cenc="urn:mpeg:cenc:2013">
+  <!-- Created with Bento4 mp4-dash.py, VERSION=1.8.0-624 -->
+  <Period>
+    <!-- Video -->
+    <AdaptationSet maxHeight="1080" maxWidth="1920" mimeType="video/mp4" minHeight="1080" minWidth="1920" segmentAlignment="true" startWithSAP="1">
+      <!-- MPEG Common Encryption -->
+      <ContentProtection cenc:default_KID="9eb4050d-e44b-4802-932e-27d75083e266" schemeIdUri="urn:mpeg:dash:mp4protection:2011" value="cenc"/>
+      <!-- Widevine -->
+      <ContentProtection schemeIdUri="urn:uuid:edef8ba9-79d6-4ace-a3c8-27dcd51d21ed">
+        <cenc:pssh>AAAARnBzc2gAAAAA7e+LqXnWSs6jyCfc1R0h7QAAACYIARIQnrQFDeRLSAKTLifXUIPiZhoNd2lkZXZpbmVfdGVzdCIBKg==</cenc:pssh>
+      </ContentProtection>
+      <SegmentTemplate duration="2000" initialization="$RepresentationID$/init.mp4" media="$RepresentationID$/seg-$Number$.m4s" startNumber="1" timescale="1000"/>
+      <Representation bandwidth="4983108" codecs="avc1.428028" frameRate="25" height="1080" id="video/avc1" scanType="progressive" width="1920"/>
+    </AdaptationSet>
+  </Period>
+</MPD>

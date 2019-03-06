@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/shaka-player/2.4.7/shaka-player.compiled.js"></script>
+</head>
+<body>
+    <video controls autoplay></video>
+</body>
+<script>
+    const video = document.querySelector('video');
+    const player = new shaka.Player(video);
+    player.configure({
+        drm: {
+            servers: {
+                'com.microsoft.playready': 'https://drm-playready-licensing.axtest.net/AcquireLicense',
+                'com.widevine.alpha': 'https://drm-widevine-licensing.axtest.net/AcquireLicense'
+            }
+        }
+    });
+    player.getNetworkingEngine().registerRequestFilter((requestType, request) => {
+        if (requestType != shaka.net.NetworkingEngine.RequestType.LICENSE) return;
+        request.headers = {
+            'X-AxDRM-Message': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiYjMzNjRlYjUtNTFmNi00YWUzLThjOTgtMzNjZWQ1ZTMxYzc4IiwibWVzc2FnZSI6eyJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImtleXMiOlt7ImlkIjoiOWViNDA1MGQtZTQ0Yi00ODAyLTkzMmUtMjdkNzUwODNlMjY2IiwiZW5jcnlwdGVkX2tleSI6ImxLM09qSExZVzI0Y3Iya3RSNzRmbnc9PSJ9XX19.4lWwW46k-oWcah8oN18LPj5OLS5ZU-_AQv7fe0JhNjA'
+        };
+    });
+    player.load('./output/stream.mpd');
+</script>
+</html>
